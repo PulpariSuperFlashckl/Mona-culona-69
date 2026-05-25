@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Mona culona 69 – VIP Experience</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg: #08030d; --bg2: #110718; --gold: #c8963a; --gold2: #e8c46a;
+  --gold3: #8a6418; --white: #f2ede8; --muted: #8a7d90;
+  --border: rgba(200,150,58,.16); --border2: rgba(200,150,58,.30);
+  --card: rgba(255,255,255,.035); --nav: 70px;
+  --ff: 'Outfit', sans-serif; --ffd: 'Cormorant Garamond', serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--white);font-family:var(--ff);overflow-x:hidden;}
+a{text-decoration:none;}
+img{max-width:100%;display:block;}
+
+/* ADMIN PANEL */
+#admin-overlay{
+  display:none; position:fixed; inset:0; background:rgba(0,0,0,.96); backdrop-filter:blur(10px);
+  z-index:1000; align-items:center; justify-content:center;
+}
+.admin-box{
+  background:var(--bg2); border:1px solid var(--border2); border-radius:24px;
+  padding:2rem; width:360px; text-align:center;
+}
+.admin-input{
+  width:100%; background:rgba(255,255,255,.08); border:1px solid var(--border);
+  border-radius:12px; padding:.8rem; color:white; margin:.5rem 0;
+}
+.login-btn, .adm-btn{
+  background:linear-gradient(135deg,var(--gold),var(--gold3));
+  color:#000; border:none; padding:.7rem; border-radius:40px;
+  font-weight:bold; cursor:pointer; width:100%; margin-top:.5rem;
+}
+.adm-close{ background:none; border:none; color:var(--muted); float:right; font-size:1.3rem; cursor:pointer; }
+.adm-section{ margin-bottom:1.5rem; border-bottom:1px solid rgba(255,255,255,.05); padding-bottom:1rem; }
+.adm-section h3{ color:var(--gold2); margin-bottom:.8rem; font-size:.9rem; }
+#admin-trigger{
+  position:fixed; bottom:5rem; right:1.2rem; z-index:400;
+  background:rgba(13,5,21,.9); border:1px solid var(--border2);
+  border-radius:50px; padding:.4rem .9rem; font-size:.72rem;
+  color:var(--gold); cursor:pointer;
+}
+.error-msg{ color:#e08080; font-size:.75rem; margin-top:.5rem; }
+
+/* NAV */
+nav{
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  height:var(--nav); display:flex; align-items:center; justify-content:space-between;
+  padding:0 5%; background:rgba(8,3,13,.9); backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-ring{
+  width:40px;height:40px;border-radius:50%; border:1.5px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--ffd);font-size:1.3rem;color:var(--gold2);
+}
+.logo-text strong{font-family:var(--ffd);color:var(--gold2);}
+.nav-links{display:flex;gap:1.8rem;list-style:none;}
+.nav-links a{color:var(--muted);font-size:.83rem;}
+.nav-links a:hover,.nav-links a.active{color:var(--gold2);}
+.nav-cta{
+  background:linear-gradient(135deg,var(--gold),var(--gold3));
+  color:#000; padding:.5rem 1.4rem; border-radius:50px;
+  box-shadow:0 0 16px rgba(200,150,58,.35);
+}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+.burger span{width:22px;height:1.5px;background:var(--gold2);}
+.mob-nav{display:none;position:fixed;top:var(--nav);left:0;right:0;background:rgba(8,3,13,.97);padding:1.5rem;flex-direction:column;gap:1rem;z-index:199;}
+
+/* HERO */
+#inicio{
+  min-height:100vh; padding:calc(var(--nav) + 70px) 5% 80px;
+  display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;
+  background:radial-gradient(ellipse 60% 80% at 75% 40%,rgba(61,16,96,.55) 0%,transparent 65%), var(--bg);
+}
+.hero-eyebrow{
+  display:inline-flex; border:1px solid var(--border2); border-radius:50px;
+  padding:.3rem .9rem; font-size:.72rem; color:var(--gold); margin-bottom:1.4rem;
+}
+h1{font-family:var(--ffd); font-size:clamp(2.6rem,5.5vw,4.2rem); color:var(--gold2);}
+.hero-tagline{font-family:var(--ffd); font-size:1.3rem; color:rgba(242,237,232,.5); margin-bottom:1rem;}
+.hero-desc{color:var(--muted); line-height:1.7; margin-bottom:2rem; max-width:450px;}
+.hero-actions{display:flex; gap:1rem; flex-wrap:wrap;}
+
+/* LAPTOP */
+.device-laptop-solo{ max-width:480px; margin:0 auto; }
+.laptop-screen-premium{
+  background:#111; border-radius:16px 16px 4px 4px;
+  border:3px solid #3a3a3a; overflow:hidden;
+  box-shadow:0 30px 50px rgba(0,0,0,.6);
+}
+.screen{ aspect-ratio:16/9; background:linear-gradient(145deg,#1a0a26,#05020a); display:flex; align-items:center; justify-content:center; }
+.laptop-base-premium{ width:108%; margin-left:-4%; height:18px; background:linear-gradient(180deg,#2a2a2a,#111); border-radius:0 0 12px 12px; border:2px solid #3a3a3a; border-top:none; }
+.laptop-stand-premium{ width:35%; margin:0 auto; height:8px; background:#0f0f0f; border-radius:0 0 6px 6px; }
+.screen-placeholder{ text-align:center; color:var(--muted); cursor:pointer; }
+
+/* SECCIONES */
+.section{padding:90px 5%;}
+.section.dark{background:var(--bg2);}
+.sec-label{font-size:.7rem; letter-spacing:.14em; color:var(--gold); margin-bottom:.6rem;}
+.sec-title{font-family:var(--ffd); font-size:clamp(1.9rem,3.5vw,2.8rem); color:var(--white);}
+.sec-sub{color:var(--muted); max-width:500px; margin-bottom:2rem;}
+hr.gold-divider{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:0 5%;}
+.btn{display:inline-flex; padding:.75rem 2rem; border-radius:50px; font-weight:600; cursor:pointer; gap:.5rem; }
+.btn.primary{background:linear-gradient(135deg,var(--gold),var(--gold3)); color:#000; box-shadow:0 0 22px rgba(200,150,58,.35);}
+.btn.ghost{background:transparent; border:1px solid var(--border2); color:var(--gold2);}
+.btn.tg{background:linear-gradient(135deg,#229ed9,#186fa0); color:#fff;}
+.plans-wrap{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.8rem; max-width:800px; margin:2rem auto 0;}
+.plan{background:var(--card); border:1px solid var(--border); border-radius:22px; padding:2rem; position:relative;}
+.plan.featured{ border-color:var(--gold); }
+.plan-star{ position:absolute; top:-13px; right:18px; background:var(--gold); color:#000; font-size:.67rem; padding:.3rem .85rem; border-radius:50px; }
+.plan-name{ font-family:var(--ffd); font-size:1.25rem; color:var(--gold2); }
+.plan-price{ font-size:2rem; font-weight:700; margin:.8rem 0; }
+.plan-perks{ list-style:none; margin:1rem 0; }
+.plan-perks li{ font-size:.8rem; color:var(--muted); padding:.3rem 0; display:flex; gap:.5rem; }
+.plan-perks li::before{ content:'✦'; color:var(--gold); }
+.pay-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:1.4rem; margin-top:2rem; }
+.pay-card{ background:var(--card); border:1px solid var(--border); border-radius:22px; padding:2rem; }
+.pay-steps{ list-style:none; counter-reset:s; margin:1rem 0; }
+.pay-steps li{ counter-increment:s; font-size:.8rem; margin-bottom:.5rem; display:flex; gap:.5rem; }
+.pay-steps li::before{ content:counter(s); background:var(--gold); color:#000; font-size:.6rem; width:17px; height:17px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; }
+.tg-wrap{ display:flex; gap:3rem; flex-wrap:wrap; align-items:center; }
+.tg-card{ flex:1; background:rgba(34,158,217,.05); border:1px solid rgba(34,158,217,.2); border-radius:22px; padding:2rem; text-align:center; }
+.social-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:1rem; max-width:500px; margin:0 auto; }
+.soc{ background:var(--card); border:1px solid var(--border); border-radius:16px; padding:1rem; text-align:center; transition:transform .2s; }
+.soc:hover{ transform:translateY(-4px); border-color:var(--gold2); }
+.soc .s-icon svg{ width:32px; height:32px; fill:var(--gold2); margin-bottom:.5rem; }
+.soc .s-name{ font-size:.85rem; color:var(--white); display:block; }
+.vip-box{ max-width:680px; margin:0 auto; text-align:center; border:1px solid var(--border2); border-radius:28px; padding:3rem; background:rgba(200,150,58,.02); }
+.vip-perks{ display:flex; flex-wrap:wrap; gap:.8rem; justify-content:center; margin:1.5rem 0; }
+.vip-perk{ background:rgba(200,150,58,.07); border:1px solid var(--border); border-radius:10px; padding:.5rem 1rem; }
+.chat-wrap{ max-width:540px; margin:2rem auto; background:var(--card); border:1px solid var(--border); border-radius:22px; padding:2rem; }
+.contact-form-data{ display:grid; grid-template-columns:1fr 1fr; gap:.7rem; margin-bottom:1rem; }
+#msgs{ background:rgba(0,0,0,.35); border-radius:12px; min-height:100px; padding:.8rem; margin-bottom:.8rem; }
+.msg.sys{ background:rgba(200,150,58,.1); color:var(--gold); padding:.4rem; border-radius:8px; margin-bottom:.5rem; font-size:.75rem; }
+footer{ background:rgba(0,0,0,.5); border-top:1px solid var(--border); padding:2rem 5%; display:flex; justify-content:space-between; flex-wrap:wrap; }
+.ftg{ position:fixed; bottom:1.5rem; right:1.2rem; background:#229ed9; width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.3rem; }
+.rv{ opacity:0; transform:translateY(22px); transition:opacity .7s,transform .7s; }
+.rv.in{ opacity:1; transform:none; }
+@media(max-width:900px){ #inicio{grid-template-columns:1fr;} .hero-right{display:none;} .nav-links,.nav-cta{display:none;} .burger{display:flex;} }
+</style>
+</head>
+<body>
+
+<!-- ADMIN LOGIN -->
+<div id="admin-overlay">
+  <div class="admin-box" id="admin-login-box">
+    <h2 style="color:var(--gold2);">🔐 Admin Access</h2>
+    <input type="text" id="admin-user" placeholder="Usuario" class="admin-input">
+    <input type="password" id="admin-pass" placeholder="Contraseña" class="admin-input">
+    <button class="login-btn" onclick="checkAdminLogin()">Ingresar</button>
+    <div id="login-error" class="error-msg"></div>
+  </div>
+  <div class="admin-box" id="admin-panel-box" style="display:none; width:420px; max-height:80vh; overflow-y:auto;">
+    <button class="adm-close" onclick="closeAdminPanel()">✕</button>
+    <h2 style="color:var(--gold2);">⚙️ Panel Admin</h2>
+    <div class="adm-section"><h3>Identidad</h3><input id="a-name" class="admin-input" value="Mona culona 69"><input id="a-tag" class="admin-input" value="VIP Experience"><textarea id="a-desc" rows="2" class="admin-input">Únete a mi comunidad VIP. Contenido exclusivo y acceso a cenas VIP.</textarea><button class="adm-btn" onclick="applyIdentity()">Guardar</button></div>
+    <div class="adm-section"><h3>Imagen Laptop</h3><input type="file" id="a-laptop-img" accept="image/*" onchange="setLaptopImg(this)"><button class="adm-btn" style="margin-top:5px; background:#333;" onclick="clearLaptopImg()">Limpiar</button></div>
+    <div class="adm-section"><h3>Redes Sociales</h3><label>TikTok URL</label><input id="a-tiktok" class="admin-input" value="https://www.tiktok.com/@vanneperdomo3?_r=1&_t=ZS-96evb7c9Kz6"><label>Telegram URL</label><input id="a-telegram" class="admin-input" value="https://t.me/Monawelcome"><label>PayPal URL</label><input id="a-paypal" class="admin-input" value="https://paypal.me/monaculona69"><button class="adm-btn" onclick="applySocials()">Actualizar Redes</button></div>
+    <div class="adm-section"><h3>Planes (Precios)</h3><label>Plan Estándar ($)</label><input id="a-p1-price" value="23"><label>Plan VIP ($)</label><input id="a-p2-price" value="50"><button class="adm-btn" onclick="applyPlans()">Actualizar Precios</button></div>
+    <div class="adm-section"><h3>Correo Admin</h3><input id="a-email" class="admin-input" value="admin@monaculona69.com"><button class="adm-btn" onclick="alert('Correo guardado')">Guardar</button></div>
+  </div>
+</div>
+<button id="admin-trigger" onclick="showAdminLogin()">⚙ Admin</button>
+
+<nav>
+  <div class="logo"><div class="logo-ring" id="nav-initial">M</div><div class="logo-text"><strong id="nav-name">Mona culona 69</strong><span id="nav-tag">VIP Experience</span></div></div>
+  <ul class="nav-links"><li><a href="#inicio">Inicio</a></li><li><a href="#suscripcion">Suscripción</a></li><li><a href="#pagos">Pagos</a></li><li><a href="#telegram">Telegram</a></li><li><a href="#vip">Cena VIP</a></li><li><a href="#contacto">Contacto</a></li></ul>
+  <a href="#suscripcion" class="btn primary nav-cta">Únete</a>
+  <div class="burger" onclick="toggleMob()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mob-nav" id="mobNav"><a href="#inicio">Inicio</a><a href="#suscripcion">Suscripción</a><a href="#pagos">Pagos</a><a href="#telegram">Telegram</a><a href="#vip">Cena VIP</a><a href="#contacto">Contacto</a></div>
+
+<section id="inicio">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Contenido Exclusivo</div>
+    <h1 id="hero-name">Mona culona 69</h1>
+    <div class="hero-tagline" id="hero-tagline">VIP Experience</div>
+    <p class="hero-desc" id="hero-desc">Únete a mi comunidad VIP. Contenido exclusivo y acceso a cenas VIP.</p>
+    <div class="hero-actions"><button class="btn primary" onclick="openModal('VIP')">✦ Suscribirme</button><a href="#telegram" class="btn tg">📲 Telegram</a></div>
+  </div>
+  <div class="hero-right"><div class="device-laptop-solo"><div class="laptop-screen-premium"><div class="screen" id="screen-laptop"><div class="screen-placeholder" onclick="triggerLaptopUpload()">💻 Click para imagen premium</div></div></div><div class="laptop-base-premium"></div><div class="laptop-stand-premium"></div></div></div>
+</section>
+<hr class="gold-divider"/>
+
+<section id="suscripcion" class="section dark">
+  <p class="sec-label">Planes</p><h2 class="sec-title">Elige tu Suscripción</h2>
+  <div class="plans-wrap">
+    <div class="plan rv"><div class="plan-name">Estándar</div><div class="plan-price" id="price-1">$23<sub>/mes</sub></div><ul class="plan-perks"><li>Acceso total al canal de Telegram</li><li>Contenido semanal exclusivo</li><li>Soporte básico</li></ul><button class="btn ghost" style="width:100%" onclick="openModal('Estándar')">Elegir</button></div>
+    <div class="plan featured rv"><div class="plan-star">★ VIP</div><div class="plan-name">VIP + Beneficio Cena</div><div class="plan-price" id="price-2">$50<sub>/mes</sub></div><ul class="plan-perks"><li>Todo lo del plan Estándar</li><li>✨ Puedes solicitar una Cena VIP (amistad)</li><li>Atención prioritaria 24/7</li></ul><button class="btn primary" style="width:100%" onclick="openModal('VIP')">Elegir VIP</button></div>
+  </div>
+</section>
+
+<div id="subModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.9); z-index:300; align-items:center; justify-content:center;"><div style="background:var(--bg2); border:1px solid var(--gold); border-radius:20px; padding:2rem; max-width:400px;"><button onclick="closeModal()" style="float:right; background:none; border:none; color:white;">✕</button><h2 id="modal-plan" style="color:var(--gold2);">VIP</h2><input id="f-name" placeholder="Nombre" class="admin-input" style="margin:.5rem 0;"><input id="f-email" placeholder="Email" class="admin-input"><input id="f-tg" placeholder="Telegram" class="admin-input"><select id="f-plan" class="admin-input"><option>Estándar</option><option selected>VIP</option></select><button class="btn primary" style="width:100%; margin-top:1rem;" onclick="submitSub()">Suscribirme</button><div id="fmsg" class="error-msg"></div></div></div>
+
+<hr class="gold-divider"/>
+<section id="pagos" class="section dark"><p class="sec-label">Métodos de pago</p><h2 class="sec-title">Paga y Accede</h2><div class="pay-grid"><div class="pay-card"><div class="pay-logo">🅿️</div><h3>PayPal</h3><ol class="pay-steps"><li>Envía el monto a: vanemurillo2608@gmail.com</li><li>Envía comprobante por el chat</li></ol><a href="#" id="pp-link" target="_blank" class="btn primary">Pagar</a></div><div class="pay-card"><div class="pay-logo">🏦</div><h3>Bancolombia</h3><ol class="pay-steps"><li>Solicita datos por Telegram</li><li>Adjunta comprobante en el chat</li></ol><a href="https://t.me/Monawelcome" class="btn ghost">Solicitar Datos</a></div></div></section>
+<hr class="gold-divider"/>
+<section id="telegram" class="section dark"><div class="tg-wrap"><div class="tg-left"><p class="sec-label">COMUNIDAD</p><h2 class="sec-title">Únete a mi Telegram</h2><a href="#" id="tg-main-link" target="_blank" class="btn tg">📲 Unirse Ahora</a></div><div class="tg-card"><div class="tg-icon">✈️</div><div class="tg-handle" style="font-size:1.2rem;">@Monawelcome</div><p>✨ ¿Qué esperas para unirte?</p></div></div></section>
+<hr class="gold-divider"/>
+<section id="redes" class="section dark"><p class="sec-label">Sígueme</p><h2 class="sec-title">Redes Sociales</h2><div class="social-grid" id="social-grid"></div></section>
+<hr class="gold-divider"/>
+<section id="vip" class="section"><div class="vip-box"><span class="vip-crown">👑</span><h2>Invitame a cenar</h2><p>Solo usuarios con plan VIP pueden solicitar este beneficio. Cena de amistad, experiencia privada.</p><div class="vip-perks"><div class="vip-perk">🍷 Cena de amistad</div><div class="vip-perk">✨ Solo para VIP</div></div><button class="btn primary" onclick="openModal('VIP')">Quiero ser VIP →</button></div></section>
+<hr class="gold-divider"/>
+<section id="contacto" class="section dark"><p class="sec-label">Atención</p><h2 class="sec-title">Contáctame</h2><div class="chat-wrap"><div class="contact-form-data"><input id="contact-name" placeholder="Nombre"><input id="contact-phone" placeholder="Teléfono"></div><div class="contact-form-data"><select id="contact-type"><option>Estándar</option><option>VIP</option><option>Duda</option></select><input id="contact-tg" placeholder="Usuario Telegram"></div><label style="display:block; margin-bottom:1rem; cursor:pointer;">📎 Adjuntar comprobante <input type="file" id="proof-in" style="display:none;" onchange="proofUploadContact(this)"></label><div id="msgs"><div class="msg sys">Adjunta comprobante y completa tus datos.</div></div></div></section>
+<footer><div class="fc">© 2024 <span id="footer-name">Mona culona 69</span></div><div class="fl"><a href="#">Términos</a><a href="#">Privacidad</a></div><div class="fs" id="footer-socials"></div></footer>
+<a href="#" id="ftg-btn" class="ftg" target="_blank">✈️</a>
+
+<script>
+// ==================== CREDENCIALES CORRECTAS ====================
+const VALID_USER = "admin";
+const VALID_PASS = "VIP2024";
+let isAdminLogged = false;
+
+function showAdminLogin() {
+  document.getElementById('admin-overlay').style.display = 'flex';
+  document.getElementById('admin-login-box').style.display = 'block';
+  document.getElementById('admin-panel-box').style.display = 'none';
+  document.getElementById('login-error').innerText = '';
+}
+
+function closeAdminPanel() {
+  document.getElementById('admin-overlay').style.display = 'none';
+  isAdminLogged = false;
+}
+
+function checkAdminLogin() {
+  const user = document.getElementById('admin-user').value;
+  const pass = document.getElementById('admin-pass').value;
+  if (user === VALID_USER && pass === VALID_PASS) {
+    isAdminLogged = true;
+    document.getElementById('admin-login-box').style.display = 'none';
+    document.getElementById('admin-panel-box').style.display = 'block';
+    loadCurrentDataToAdmin();
+  } else {
+    document.getElementById('login-error').innerText = '❌ Credenciales incorrectas. Usuario: admin / Contraseña: VIP2024';
+  }
+}
+
+function loadCurrentDataToAdmin() {
+  document.getElementById('a-name').value = state.name;
+  document.getElementById('a-tag').value = state.tagline;
+  document.getElementById('a-desc').value = state.desc;
+  document.getElementById('a-tiktok').value = state.socials.tiktok.url;
+  document.getElementById('a-telegram').value = state.socials.telegram.url;
+  document.getElementById('a-paypal').value = state.socials.paypal.url;
+  document.getElementById('a-p1-price').value = state.prices.standard;
+  document.getElementById('a-p2-price').value = state.prices.vip;
+}
+
+function applyIdentity() {
+  if (!isAdminLogged) { alert("No autorizado"); return; }
+  state.name = document.getElementById('a-name').value;
+  state.tagline = document.getElementById('a-tag').value;
+  state.desc = document.getElementById('a-desc').value;
+  document.getElementById('hero-name').innerText = state.name;
+  document.getElementById('hero-tagline').innerText = state.tagline;
+  document.getElementById('hero-desc').innerText = state.desc;
+  document.getElementById('nav-name').innerText = state.name;
+  document.getElementById('nav-tag').innerText = state.tagline;
+  document.getElementById('nav-initial').innerText = state.name.charAt(0);
+  document.getElementById('footer-name').innerText = state.name;
+  document.title = state.name;
+  alert('✅ Identidad actualizada');
+}
+
+function applySocials() {
+  if (!isAdminLogged) { alert("No autorizado"); return; }
+  state.socials.tiktok.url = document.getElementById('a-tiktok').value;
+  state.socials.telegram.url = document.getElementById('a-telegram').value;
+  state.socials.paypal.url = document.getElementById('a-paypal').value;
+  // Actualizar enlaces en la página
+  document.getElementById('tg-main-link').href = state.socials.telegram.url;
+  document.getElementById('ftg-btn').href = state.socials.telegram.url;
+  document.getElementById('pp-link').href = state.socials.paypal.url;
+  renderSocials();  // Refresca los íconos y enlaces
+  alert('✅ Redes sociales actualizadas');
+}
+
+function applyPlans() {
+  if (!isAdminLogged) { alert("No autorizado"); return; }
+  let p1 = document.getElementById('a-p1-price').value;
+  let p2 = document.getElementById('a-p2-price').value;
+  state.prices.standard = p1;
+  state.prices.vip = p2;
+  document.getElementById('price-1').innerHTML = `$${p1}<sub>/mes</sub>`;
+  document.getElementById('price-2').innerHTML = `$${p2}<sub>/mes</sub>`;
+  alert('✅ Precios actualizados');
+}
+
+function setLaptopImg(input) {
+  if (!isAdminLogged) { alert("No autorizado"); return; }
+  if (!input.files[0]) return;
+  const url = URL.createObjectURL(input.files[0]);
+  document.getElementById('screen-laptop').innerHTML = `<img src="${url}" style="width:100%; height:100%; object-fit:cover;"/>`;
+}
+
+function clearLaptopImg() {
+  if (!isAdminLogged) { alert("No autorizado"); return; }
+  document.getElementById('screen-laptop').innerHTML = `<div class="screen-placeholder" onclick="triggerLaptopUpload()">💻 Click para imagen premium</div>`;
+}
+
+function triggerLaptopUpload() {
+  if (isAdminLogged) document.getElementById('a-laptop-img').click();
+  else alert('🔒 Solo administradores pueden cambiar la imagen');
+}
+
+// ========== STATE con redes sociales (TikTok, Telegram, PayPal) ==========
+const state = {
+  name: 'Mona culona 69',
+  tagline: 'VIP Experience',
+  desc: 'Únete a mi comunidad VIP. Contenido exclusivo y acceso a cenas VIP.',
+  socials: {
+    tiktok: { 
+      url: 'https://tiktok.com/@monaculona69', 
+      icon: '<svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.73a8.19 8.19 0 004.84 1.56V6.84a4.85 4.85 0 01-1.07-.15z"/></svg>', 
+      label: 'TikTok' 
+    },
+    telegram: { 
+      url: 'https://t.me/Monawelcome', 
+      icon: '<svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>', 
+      label: 'Telegram' 
+    },
+    paypal: { 
+      url: 'https://paypal.me/monaculona69', 
+      icon: '<svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 00-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 00-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 00.554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 01.923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>', 
+      label: 'PayPal' 
+    }
+  },
+  prices: { standard: "23", vip: "50" }
+};
+
+function renderSocials() {
+  const grid = document.getElementById('social-grid');
+  const footer = document.getElementById('footer-socials');
+  if (!grid) return;
+  grid.innerHTML = '';
+  footer.innerHTML = '';
+  Object.values(state.socials).forEach(s => {
+    const socDiv = document.createElement('a');
+    socDiv.href = s.url;
+    socDiv.target = '_blank';
+    socDiv.className = 'soc rv';
+    socDiv.innerHTML = `<span class="s-icon">${s.icon}</span><span class="s-name">${s.label}</span>`;
+    grid.appendChild(socDiv);
+    
+    const footerLink = document.createElement('a');
+    footerLink.href = s.url;
+    footerLink.target = '_blank';
+    footerLink.innerHTML = s.icon;
+    footer.appendChild(footerLink);
+  });
+  document.querySelectorAll('.rv').forEach(el => observer.observe(el));
+}
+
+function openModal(plan) {
+  document.getElementById('subModal').style.display = 'flex';
+  document.getElementById('modal-plan').innerText = plan;
+  document.getElementById('f-plan').value = plan;
+}
+function closeModal() { document.getElementById('subModal').style.display = 'none'; }
+function submitSub() {
+  const name = document.getElementById('f-name').value;
+  if (!name) { document.getElementById('fmsg').innerText = 'Nombre requerido'; return; }
+  alert(`✅ Gracias ${name}, te contactaremos por Telegram.`);
+  closeModal();
+}
+function proofUploadContact(input) {
+  if (!input.files[0]) return;
+  const name = document.getElementById('contact-name').value;
+  if (!name) { alert('Completa tu nombre'); input.value = ''; return; }
+  document.getElementById('msgs').innerHTML = '<div class="msg sys">✅ Comprobante recibido, serás redirigido a Telegram.</div>';
+  setTimeout(() => { window.open(state.socials.telegram.url, '_blank'); }, 1000);
+}
+function toggleMob() { document.getElementById('mobNav').classList.toggle('open'); }
+const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }); }, { threshold: .1 });
+document.querySelectorAll('.rv').forEach(el => observer.observe(el));
+
+// Inicialización
+renderSocials();
+document.getElementById('pp-link').href = state.socials.paypal.url;
+document.getElementById('tg-main-link').href = state.socials.telegram.url;
+document.getElementById('ftg-btn').href = state.socials.telegram.url;
+</script>
+</body>
+</html>
